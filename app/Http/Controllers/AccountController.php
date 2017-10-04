@@ -92,7 +92,7 @@ class AccountController extends Controller
                 {
                     return redirect()->action('AdminController@Dashboard');
                 }
-        }
+            }
         }
     }
 }
