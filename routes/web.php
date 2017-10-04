@@ -25,3 +25,9 @@ Route::post('/register','AccountController@RegisterPost')->name('register_post')
 Route::get('/login','AccountController@Login')->name('login');
 Route::post('/login','AccountController@LoginPost')->name('login_post');
 
+
+Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','UserActivated']], function ()
+{
+    Route::get('dashboard','UserController@Dashboard');
+});
+

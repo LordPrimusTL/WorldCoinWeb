@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -71,6 +72,27 @@ class AccountController extends Controller
 
     public function LoginPost(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        $this->validate($request,[
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+        {
+            //dd(Auth::user());
+            if(Auth::user()->is_active)
+            {
+                if(Auth::user()->role_id == 3)
+                {
+                    return redirect()->action('UserController@Dashboard');
+                }
+
+                if(Auth::user()->role_id < 3)
+                {
+                    return redirect()->action('AdminController@Dashboard');
+                }
+        }
+        }
     }
 }
