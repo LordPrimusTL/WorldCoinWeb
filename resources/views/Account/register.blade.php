@@ -2,6 +2,7 @@
 @section('body')
     <div class="container " style="margin-top:50px;margin-bottom:100px;">
         <div class="col-md-offset-2 col-md-7 ">
+            @include('Partials._message')
             <form action="{{route('register_post')}}" method="post" style="margin-left:50px;" id="Regform" >
                 {{csrf_field()}}
                 <h4 style="margin-bottom:10px;font-size:29px;">Profile Information</h4>
@@ -30,7 +31,7 @@
 						<span class="fa fa-user-plus">
 						</span>
 					</span>
-                    <input type="text" class="form-control input input-lg" placeholder="Referrer">
+                    <input type="text" name="referrer" id="referrer" class="form-control input input-lg" placeholder="Referrer">
                 </div>
                 <div class="input-group form-group col-md-12">
 					<span class="input-group-addon">
