@@ -132,7 +132,6 @@
                         <div class="panel-footer" style="background-color:green;color:white;">
                             <P class="well-sm text-center">VIEW TICKETS</P>
                         </div>
-
                     </div>
                 </a>
             </div>
