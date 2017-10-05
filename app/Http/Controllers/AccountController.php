@@ -95,12 +95,12 @@ class AccountController extends Controller
 
     public function LoginPost(Request $request)
     {
-        //dd($request->all());
+
         $this->validate($request,[
             'email' => 'required',
             'password' => 'required'
         ]);
-
+        //dd($request->all());
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
             //dd(Auth::user());
@@ -116,6 +116,14 @@ class AccountController extends Controller
                     return redirect()->action('AdminController@Dashboard');
                 }
             }
+            else{
+                Session::flash('error', 'Please contact the admin as your account has entered the dormancy period.');
+                Auth::logout();
+                return redirect()->back();
+            }
+        }
+        {
+
         }
     }
 
