@@ -77,7 +77,7 @@ class AccountController extends Controller
 
         }
         else{
-            $u->referrer  = $request->referrer;// get refferer id
+            $u->referrer_id  = $request->referrer;// get refferer id
         }
         try{
             $u->save();

@@ -39,4 +39,14 @@ class User extends Authenticatable
 
     }
 
+    public function Reg()
+    {
+        return $this->belongsTo(RegistrationType::class,'reg_type');
+    }
+
+    public function Tclass()
+    {
+        return $this->belongsTo(TClass::class,'class_id');
+    }
+
 }

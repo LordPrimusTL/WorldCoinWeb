@@ -46,3 +46,16 @@ Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','User
     Route::post('invest/add','UserController@InvestPost')->name('user_invest_post');
 });
 
+
+
+Route::group(['prefix' => '/admin/',['middleware' => ['auth','AdminAuthCheck']]],function ()
+{
+    Route::get('dashboard','AdminController@Dashboard')->name('admin_dashboard');
+    Route::get('user/view/{id}','Admincontroller@UserView')->name('admin_user_view');
+
+
+
+
+    Route::post('user/profile/edit/{id}','AdminController@UserEdit')->name('admin_user_edit');
+});
+
