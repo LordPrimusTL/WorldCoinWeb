@@ -1,7 +1,7 @@
 <div class="header" style="background-color:green;">
     <div class="container">
         <div class="w3_agile_logo">
-            <h1><a href="{{route('home')}}"><span>W</span>orld Coins</a></h1>
+            <h1><a href="@if(Auth::check()) @if(Auth::user()->role_id == 3) {{route('user_dashboard')}} @elseif(Auth::user()->role_id < 3) {{route('home')}} @else {{route('home')}} @endif @endif"><span>W</span>orld Coins</a></h1>
         </div>
         <div class="agile_header_social">
             <ul class="agileits_social_list">
@@ -31,17 +31,34 @@
             <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                 <nav class="link-effect-12">
                     <ul class="nav navbar-nav w3_agile_nav">
-                        <li class="{{Request::is('/') ? 'active' : ''}}"><a href="{{route('home')}}"><span>Home</span></a></li>
-                        <li><a href="#"><span>Contact Us</span></a></li>
-                        <li><a href="{{route('about')}}"><span>About Us</span></a></li>
-                        <li class="dropdown {{Request::is('register') || Request::is('login') ? 'active' : ''}}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span data-hover="Short Codes">Accounts</span> <b class="caret"></b></a>
-                            <ul class="dropdown-menu agile_short_dropdown">
-                                <li><a href="{{route('register')}}">Register</a></li>
-                                <li><a href="{{route('login')}}">Login</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{{route('contact')}}"><span>Mail Us</span></a></li>
+                        @if(\App\Helpers\AuthCheck::AuthUserCheck())
+                            <li class="{{Request::is('user/dashboard') ? 'active' : ''}}"><a href="{{route('user_dashboard')}}"><span>Dashboard</span></a></li>
+                            <li class="{{Request::is('user/transactions') ? 'active' : ''}}"><a href="{{route('user_transaction')}}"><span>Transactions</span></a></li>
+                            <li class="{{Request::is('user/account/*') ? 'active' : ''}}"><a href="{{route('user_account')}}"><span>Account</span></a></li>
+                            <li class="{{Request::is('logout') ? 'active' : ''}}"><a href="{{route('logout')}}"><span>Log Out</span></a></li>
+                        @elseif(\App\Helpers\AuthCheck::AuthAdminCheck())
+                            <li class="{{Request::is('/') ? 'active' : ''}}"><a href=""><span>Home</span></a></li>
+                            <li><a href="{{route('about')}}"><span>About Us</span></a></li>
+                            <li class="dropdown {{Request::is('register') || Request::is('login') ? 'active' : ''}}">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span data-hover="Short Codes">Accounts</span> <b class="caret"></b></a>
+                                <ul class="dropdown-menu agile_short_dropdown">
+                                    <li><a href="{{route('register')}}">Register</a></li>
+                                    <li><a href="{{route('login')}}">Login</a></li>
+                                </ul>
+                            </li>
+                            <li class="{{Request::is('contact') ? 'active' : ''}}"><a href="{{route('contact')}}"><span>Contact Us</span></a></li>
+                        @else
+                            <li class="{{Request::is('/') ? 'active' : ''}}"><a href="@if(Auth::check()) @if(Auth::user()->role_id == 3) {{route('user_dashboard')}} @elseif(Auth::user()->role_id < 3) {{route('home')}} @else {{route('home')}} @endif @else {{route('home')}} @endif"><span>Home</span></a></li>
+                            <li><a href="{{route('about')}}"><span>About Us</span></a></li>
+                            <li class="dropdown {{Request::is('register') || Request::is('login') ? 'active' : ''}}">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span data-hover="Short Codes">Accounts</span> <b class="caret"></b></a>
+                                <ul class="dropdown-menu agile_short_dropdown">
+                                    <li><a href="{{route('register')}}">Register</a></li>
+                                    <li><a href="{{route('login')}}">Login</a></li>
+                                </ul>
+                            </li>
+                            <li class="{{Request::is('contact') ? 'active' : ''}}"><a href="{{route('contact')}}"><span>Contact Us</span></a></li>
+                        @endif
                     </ul>
                     <div class="w3_agileits_search_form">
                         <form action="#" method="post">
