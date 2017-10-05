@@ -61,6 +61,7 @@ class AccountController extends Controller
         $u->referrer_id = $request->referrer;
         $u->class_id = 0;
         $u->r_mark = 0;
+        $u->reg_type = $request->reg_type;
         $u->r_link = explode(' ', $request->fullname)[0] . time();
         $u->payment_id = $request->pay_type;
         if($request->referrer != null)
