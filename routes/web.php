@@ -40,3 +40,16 @@ Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','User
     Route::get('support','UserController@Support')->name('user_support');
 });
 
+
+
+Route::group(['prefix' => '/admin/',['middleware' => ['auth','AdminAuthCheck']]],function ()
+{
+    Route::get('dashboard','AdminController@Dashboard')->name('admin_dashboard');
+    Route::get('user/view/{id}','Admincontroller@UserView')->name('admin_user_view');
+
+
+
+
+    Route::post('user/profile/edit/{id}','AdminController@UserEdit')->name('admin_user_edit');
+});
+
