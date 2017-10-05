@@ -24,10 +24,18 @@ Route::get('/register','AccountController@Register')->name('register');
 Route::post('/register','AccountController@RegisterPost')->name('register_post');
 Route::get('/login','AccountController@Login')->name('login');
 Route::post('/login','AccountController@LoginPost')->name('login_post');
+Route::get('/logout','AccountController@Logout')->name('logout');
 
 
 Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','UserActivated']], function ()
 {
-    Route::get('dashboard','UserController@Dashboard');
+    Route::get('dashboard','UserController@Dashboard')->name('user_dashboard');
+    Route::get('profile','UserController@Profile')->name('user_profile');
+    Route::get('accounts','UserController@Account')->name('user_account');
+    Route::get('invest','UserController@Invest')->name('user_invest');
+    Route::get('withdrawals','UserController@Withdrawals')->name('user_withdrawals');
+    Route::get('transactions','UserController@Transactions')->name('user_transaction');
+    Route::get('referrals','UserController@Referrals')->name('user_referrals');
+    Route::get('support','UserController@Support')->name('user_support');
 });
 

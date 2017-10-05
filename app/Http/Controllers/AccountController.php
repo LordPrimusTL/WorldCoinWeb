@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -26,6 +27,7 @@ class AccountController extends Controller
 
     public function Login()
     {
+        Auth::logout();
         return view('Account.login',['title' => 'Login']);
     }
 
@@ -93,6 +95,15 @@ class AccountController extends Controller
                     return redirect()->action('AdminController@Dashboard');
                 }
             }
+        }
+    }
+
+    public function Logout()
+    {
+        if(Auth::Check())
+        {
+            Auth::logout();
+            return redirect()->action('AccountController@Login');
         }
     }
 }
