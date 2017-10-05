@@ -24,4 +24,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public static function FindRefferer($link)
+    {
+        $user = User::where(['r_link' => $link,'activated' => true])->get();
+        if(count($user) > 0)
+        {
+            return $user[0];
+        }
+        else{
+            return null;
+        }
+
+    }
+
 }

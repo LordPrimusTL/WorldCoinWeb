@@ -22,7 +22,12 @@ class AccountController extends Controller
     //GET
     public function Register()
     {
-        return view('Account.register',['title' => 'Register']);
+        return view('Account.register',['title' => 'Register','r_link' => null]);
+    }
+
+    public function RegisterRef($r_link)
+    {
+        return view('Account.register',['title' => 'Register','r_link' => $r_link]);
     }
 
     public function Login()
@@ -58,10 +63,25 @@ class AccountController extends Controller
         $u->r_mark = 0;
         $u->r_link = explode(' ', $request->fullname)[0] . time();
         $u->payment_id = $request->pay_type;
+        if($request->referrer != null)
+        {
+            $referrer = User::FindRefferer($request->referrer);
+            if($referrer == null)
+            {
+                $u->referrer_id = null;
+            }
+            else{
+                $u->referrer_id = $referrer->id;
+            }
+
+        }
+        else{
+            $u->referrer  = $request->referrer;// get refferer id
+        }
         try{
             $u->save();
             Log::info('Account Created',['user' => $u]);
-            Session::flash('success','An Activation Email Has Been Sent To The Email You Provided');
+            Session::flash('success','An Activation Email Has Been Sent To The Email  Address You Provided');
             //Send Mail
         }
         catch(\Exception $ex)
@@ -106,4 +126,6 @@ class AccountController extends Controller
             return redirect()->action('AccountController@Login');
         }
     }
+
+
 }

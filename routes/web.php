@@ -21,6 +21,7 @@ Route::get('/contact','UtilityController@Contact')->name('contact');
 
 //Account
 Route::get('/register','AccountController@Register')->name('register');
+Route::get('/register/referral/{r_link}','AccountController@RegisterRef')->name('register_referrals');
 Route::post('/register','AccountController@RegisterPost')->name('register_post');
 Route::get('/login','AccountController@Login')->name('login');
 Route::post('/login','AccountController@LoginPost')->name('login_post');

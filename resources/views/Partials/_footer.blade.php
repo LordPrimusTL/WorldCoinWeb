@@ -59,7 +59,7 @@
 </div>
 <!-- //footer -->
 <!-- gauge-meter -->
-<script src="js/jquery.gauge.js"></script>
+<script src="{{asset('js/jquery.gauge.js')}}"></script>
 <script>
     $(document).ready(function (){
         $("#gauge1").gauge(30,{color: "#fb5710",unit: " %",type: "halfcircle"});
@@ -70,7 +70,7 @@
 </script>
 <!-- //gauge-meter -->
 <!-- range -->
-<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="{{asset('js/jquery-ui.js')}}"></script>
 <script type='text/javascript'>//<![CDATA[
     $(window).load(function(){
         $( "#slider-range" ).slider({
@@ -87,8 +87,8 @@
 </script>
 <!-- //range -->
 <!-- start-smooth-scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="{{asset('js/move-top.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/easing.js')}}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event){
@@ -99,7 +99,7 @@
 </script>
 <!-- start-smooth-scrolling -->
 <!-- for bootstrap working -->
-<script src="js/bootstrap.js"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
 <!-- //for bootstrap working -->
 <!-- here stars scrolling icon -->
 <script type="text/javascript">

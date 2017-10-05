@@ -11,6 +11,7 @@ namespace App\Helpers;
 
 use App\ErrorLogger;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class Logger
 {

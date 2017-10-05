@@ -31,7 +31,7 @@
 						<span class="fa fa-user-plus">
 						</span>
 					</span>
-                    <input type="text" name="referrer" id="referrer" class="form-control input input-lg" placeholder="Referrer">
+                    <input type="text" name="referrer" id="referrer" value="@if($r_link != null) {{$r_link}} @endif" class="form-control input input-lg" placeholder="Referrer">
                 </div>
                 <div class="input-group form-group col-md-12">
 					<span class="input-group-addon">
