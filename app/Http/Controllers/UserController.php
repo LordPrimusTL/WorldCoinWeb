@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Logger;
+use App\Investments;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +27,12 @@ class UserController extends Controller
         return view('User.dashboard',['title' => "Dashboard"]);
     }
 
+
+    //Profile
     public function Profile()
     {
         return view('User.profile',['title' => 'Profile','user' => Auth::user()]);
     }
-
     public function ProfileEdit(Request $request)
     {
         $this->validate($request,[
@@ -62,7 +64,6 @@ class UserController extends Controller
         //validate and save
 
     }
-
     public function ProfileEditPassword(Request $request)
     {
         $this->validate($request,[
@@ -102,5 +103,52 @@ class UserController extends Controller
     public function Account()
     {
         return view('User.Account.dashboard',['title' => 'Accounts']);
+    }
+
+
+    //InvestmentsMode
+    public function Invest()
+    {
+        return view('User.invest',['title' => 'Investment','inv' => Investments::orderBy('created_at','DESC')->get()]);
+    }
+    public function InvestPost(Request $request)
+    {
+        $this->validate($request,[
+            'duration' => 'required|numeric',
+            'amount' => 'required|numeric',
+        ]);
+        $i = new Investments();
+        $i->inv_id = $this->generateInv();
+        $i->user_id = Auth::id();
+        $i->amount = $request->amount;
+        $i->duration = $request->duration;
+        $i->ts_id = 3;
+        try{
+            $i->save();
+            Session::flash('success','Investment Application Pending Authorization');
+            Log::info('Investment Successful',['by' => Auth::id(),'Inv' => $i]);
+        }
+        catch(\Exception $ex)
+        {
+            $this->getLogger()->LogError('Investment Application error',$ex,['by' => Auth::id(),'Inv' => $i]);
+        }
+        return redirect()->back();
+        //dd($request->all(),$i);
+    }
+
+
+
+
+    //Utilities
+    private function generateInv()
+    {
+        $inv_id = str_random(20);
+        if(Investments::FindByInv($inv_id))
+        {
+            $this->generateInv();
+        }
+        else{
+            return $inv_id;
+        }
     }
 }

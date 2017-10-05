@@ -43,5 +43,6 @@ Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','User
     //Posts
     Route::post('profile/edit','UserController@ProfileEdit')->name('user_profile_post');
     Route::post('profile/password/change','UserController@ProfileEditPassword')->name('user_password_edit');
+    Route::post('invest/add','UserController@InvestPost')->name('user_invest_post');
 });
 
