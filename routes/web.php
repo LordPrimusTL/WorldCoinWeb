@@ -38,5 +38,10 @@ Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','User
     Route::get('transactions','UserController@Transactions')->name('user_transaction');
     Route::get('referrals','UserController@Referrals')->name('user_referrals');
     Route::get('support','UserController@Support')->name('user_support');
+
+
+    //Posts
+    Route::post('profile/edit','UserController@ProfileEdit')->name('user_profile_post');
+    Route::post('profile/password/change','UserController@ProfileEditPassword')->name('user_password_edit');
 });
 
