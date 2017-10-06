@@ -5,12 +5,13 @@
         <h3 class="text-center" style="color:green;">Before you proceed,hear this;</h3>
         <p class="well-sm container">
             <b style="color:green;">NOTE:</b>
-            Please Note That you wont be able to withdraw your profit until the end of the Duration.Although you will be able to withdraw
+            Trading Amount starts from WCM10,000.
+            Please note that you wont be able to withdraw your profit until the end of the Duration.Although you will be able to withdraw
             your referral bonuses.
         </p>
     </div>
     <!--// brief information about us ends here-->
-    <h4 class="container-fluid text-center" style="margin-top:5px;margin-bottom:10px;font-size:29px;color:greenyellow">INVESTMENT PAGE</h4>
+    <h4 class="container-fluid text-center" style="margin-top:5px;margin-bottom:10px;font-size:29px;color:greenyellow">TRADING PAGE</h4>
     <div class="container-fluid" style="margin-top:60px;">
         <form action="{{route('user_invest_post')}}" method="post" id="Regfrom">
             {{csrf_field()}}
@@ -19,19 +20,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group form-group col-md-12">
-                            <input type="number" name="duration" id="duration" required class="form-control input input-lg"  placeholder="Duration Of Investment(Month)"/>
+                            <input type="number"  name="duration" id="duration" required class="form-control input input-lg"  placeholder="Duration Of Investment(Month)"/>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="input-group form-group col-md-12">
-                            <input type="number" name="amount" id="amount" required class="form-control input input-lg"  placeholder="Amount"/>
+                            <input type="number" min="10000" name="amount" id="amount" required class="form-control input input-lg"  placeholder="Amount"/>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <p><i>By Clicking The Invest Button, You Agree to Our Terms And Condition</i></p>
+                        <p><i>By Clicking The Trade Button, You Agree to Our Terms And Condition</i></p>
                         <br/>
                         <div class="form-group  col-md-12 input-group">
-                            <input type="submit" class="btn btn-block btn-lg" style="background-color: green; color: white;" value="Invest"/>
+                            <input type="submit" class="btn btn-block btn-lg" style="background-color: green; color: white;" value="Trade"/>
                         </div>
                     </div>
                 </div>
@@ -53,6 +54,7 @@
                     <th>DATE</th>
                     <th>AMOUNT</th>
                     <th>DURATION(MONTH)</th>
+                    <th>INTEREST RATE(%)</th>
                     <th>STATUS</th>
                     </thead>
                     <tbody>
@@ -63,6 +65,7 @@
                             <td>{{\Carbon\Carbon::parse($in->created_at)}}</td>
                             <td>{{$in->amount}}</td>
                             <td>{{$in->duration}}</td>
+                            <td>{{$in->irate}}</td>
                             <td>{{$in->status->name}}</td>
                         </tr>
                     @endforeach

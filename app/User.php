@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +48,11 @@ class User extends Authenticatable
     public function Tclass()
     {
         return $this->belongsTo(TClass::class,'class_id');
+    }
+
+    public function Trade()
+    {
+        return $this->hasMany(Investments::class,'user_id');
     }
 
 }

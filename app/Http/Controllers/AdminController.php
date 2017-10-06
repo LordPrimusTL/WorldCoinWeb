@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Logger;
+use App\Investments;
+use App\Transaction;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -59,5 +63,53 @@ class AdminController extends Controller
             $this->getLogger()->LogError('Admin: User Profile Update','Unable to Update User Profile',$ex,['old_user' => $old,'new_user' => $u]);
         }
         return redirect()->back();
+    }
+
+    public function Trade()
+    {
+        return view('Admin.tradings',['title' => 'Tradings','trades' => Investments::orderBy('created_at','DESC')->get()]);
+    }
+
+    public function TradeAction($id, $aid)
+    {
+
+        try{
+            $a = decrypt($aid);
+            $i = Investments::FindbyInvD($id);
+            $old = $i;
+            if($a == 1)
+            {
+                $i->ts_id = 6;
+                $i->start_date = Carbon::now();
+                $i->save();
+                //Put In Transaction
+
+            }
+
+            if($a == 2)
+            {
+                $i->ts_id = 5;
+                $i->save();
+                $t = new Transaction();
+                $t->t_id = Transaction::GenerateTID();
+                $t->user_id = $i->user_id;
+                $t->amount = $i->amount;
+                $t->descn = 'Trade-' . $i->inv_id;
+                $t->tn_id = 1;
+                $t->t_type = 2;
+                $t->ts_id = 1;
+                $t->save();
+                Log::info('Yransaction saved',['Trans' => $t]);
+            }
+            $i->save();
+            Log::info('Operation completed succesfully',['old' =>$old,'i' => $i,'action' => $a,'by' =>Auth::id()]);
+            Session::flash('success','Operation Completed Successfully');
+        }
+        catch(\Exception $ex){
+            $this->getLogger()->LogError('Trade Action: An Error Occurred',$ex,['old' =>$old,'i' => $i,'action' => $a,'by' =>Auth::id()]);
+            Session::flash('error','Oops An Error Occured, Please Try Again');
+        }
+        return redirect()->back();
+
     }
 }

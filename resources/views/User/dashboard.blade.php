@@ -43,12 +43,12 @@
                 <a href="{{route('user_invest')}}" style="text-decoration:none;color:white;">
                     <div class="panel" style="background-color:green;">
                         <div class="panel-heading">
-                            <p class="panel-success panel-title text-center">INVEST NOW</p>
+                            <p class="panel-success panel-title text-center">TRADE NOW</p>
                         </div>
                         <div class="panel-body">
-                            <h3 class="panel-title text-center"><i class="fa fa-edit" style="font-size:30px"></i></h3>
+                            <h3 class="panel-title text-center"><i class="fa fa-money" style="font-size:30px"></i></h3>
                             <p class="well-sm text-center">
-                                Invest And Get a % Increase Every Month
+                                Trade And Get a % Increase Every Month
                             </p>
                         </div>
                         <div class="panel-footer" style="background-color:green;color:white;">

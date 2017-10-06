@@ -48,10 +48,13 @@ Route::group(['prefix' => '/user/','middleware' => ['auth','AuthUserCheck','User
 
 
 
-Route::group(['prefix' => '/admin/',['middleware' => ['auth','AdminAuthCheck']]],function ()
+Route::group(['prefix' => '/admin/','middleware' => ['auth','AuthAdminCheck']],function ()
 {
     Route::get('dashboard','AdminController@Dashboard')->name('admin_dashboard');
     Route::get('user/view/{id}','Admincontroller@UserView')->name('admin_user_view');
+    //Trade
+    Route::get('trade','AdminController@Trade')->name('admin_trade');
+    Route::get('trade/action/{id}/{a_id}','AdminController@TradeAction')->name('admin_trade_action');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminAuthCheck;
 use App\Http\Middleware\UserActivationStatus;
 use App\Http\Middleware\UserAuthCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -61,5 +62,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'AuthUserCheck' => UserAuthCheck::class,
         'UserActivated' => UserActivationStatus::class,
+        'AuthAdminCheck' => AdminAuthCheck::class,
     ];
 }

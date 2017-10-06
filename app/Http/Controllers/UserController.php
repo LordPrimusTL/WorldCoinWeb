@@ -121,8 +121,22 @@ class UserController extends Controller
         $i->inv_id = $this->generateInv();
         $i->user_id = Auth::id();
         $i->amount = $request->amount;
+        $amt = $request->amount;
+        if($amt >= 10000 && $amt <= 50000)
+            $i->irate = 10;
+        if($amt > 50000 && $amt <= 100000)
+            $i->irate = 20;
+        if($amt > 100000 && $amt <= 200000)
+            $i->irate = 30;
+        if($amt > 200000 && $amt <= 500000)
+            $i->irate = 40;
+        if($amt > 500000 && $amt <= 1000000)
+            $i->irate = 45;
+        if($amt > 1000000)
+            $i->irate = 50;
         $i->duration = $request->duration;
         $i->ts_id = 3;
+        //dd($i);
         try{
             $i->save();
             Session::flash('success','Investment Application Pending Authorization');
